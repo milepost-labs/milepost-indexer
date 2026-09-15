@@ -1,0 +1,43 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          # The indexer runs TypeScript directly, which needs Node's built-in
+          # type stripping (stable in 24).
+          node-version: 24
+          cache: npm
+
+      # @milepost/* comes from npm at the versions package.json pins. Whether
+      # the indexer still decodes events from contract changes that have not
+      # been released is checked in milepost, whose `bindings` job runs these
+      # tests against the bindings from each of its PRs.
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      # What this repository publishes is what the app lists, so a compromised
+      # production dependency could publish anything. The failure policy is
+      # deliberate and documented in scripts/check-npm-advisories.sh.
+      - name: Check npm dependencies for known advisories
+        run: ./scripts/check-npm-advisories.sh
