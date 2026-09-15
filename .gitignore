@@ -1,0 +1,9 @@
+node_modules/
+*.log
+.env
+.env.*
+
+# Local index output. In CI the `data` branch is checked out here; it is never
+# committed to main.
+/data/
+/tmp-data/

@@ -1,0 +1,35 @@
+{
+  "name": "milepost-indexer",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Builds the lists Milepost contracts cannot answer from their events, and publishes them as static JSON.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "index": "node src/cli.ts",
+    "record-fixture": "node scripts/record-fixture.ts",
+    "typecheck": "tsc",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@milepost/attest": "^0.1.0",
+    "@milepost/policy-spend": "^0.1.0",
+    "@milepost/program": "^0.1.0",
+    "@milepost/record": "^0.1.0",
+    "@milepost/registry": "^0.1.0",
+    "@stellar/stellar-sdk": "^16.3.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.13.3",
+    "eslint": "^10.8.0",
+    "globals": "^17.7.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.65.0",
+    "vitest": "^4.1.11"
+  }
+}
