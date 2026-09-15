@@ -12,9 +12,28 @@ updates:
       milepost-bindings:
         patterns:
           - "@milepost/*"
+      # Minor and patch updates only. A major version arrives as its own PR, so
+      # one that needs work cannot hold back a batch of safe updates.
       indexer-dependencies:
         patterns:
           - "*"
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      # typescript-eslint only supports TypeScript below 6.1. Remove once a
+      # typescript-eslint release accepts the next TypeScript major.
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      # The published @milepost/* bindings are built against SDK 16, and a second
+      # major copy would not share their contract specs with this code. Remove
+      # once milepost moves its bindings to the next SDK major.
+      - dependency-name: "@stellar/stellar-sdk"
+        update-types: ["version-update:semver-major"]
+      # CI and the scheduled job run Node 24, so the types should describe that
+      # runtime. Remove when the Node version moves.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "github-actions"
     directory: "/"
