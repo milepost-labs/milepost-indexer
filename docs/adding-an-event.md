@@ -111,7 +111,13 @@ events are still inside the RPC's ~7-day window:
 npm run record-fixture -- --from <ledger> --to <ledger> --programme <id> --out test/fixtures/<name>.json
 ```
 
-The file's `events` go straight into a `FakeSource`.
+Load it with `loadFixture` from
+[test/helpers/fixtures.ts](../test/helpers/fixtures.ts) and replay it, as
+[test/fixture.test.ts](../test/fixture.test.ts) does for the seeded testnet
+scenario. That fixture already holds real `Applied`, `Reviewed`, `PayeeChanged`,
+`Contributed`, `AllocationChanged`, `Directed`, `Attested` and `Credited`
+events, so most new handlers can be tested against it without recording
+anything.
 
 ## 6. After merge
 
