@@ -1,7 +1,8 @@
 # Published files
 
-Every file is JSON under `v1/`. A local run writes them to
-`<data>/public/v1/`.
+Every file is JSON under `v1/`, published at
+`https://milepost-labs.github.io/milepost-indexer/v1/` and updated about every
+10 minutes. A local run writes them to `<data>/public/v1/`.
 
 ## Versioning
 

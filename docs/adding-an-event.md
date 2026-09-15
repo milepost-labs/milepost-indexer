@@ -122,5 +122,5 @@ anything.
 ## 6. After merge
 
 Events that arrived before your handler existed were only counted, not applied.
-Once the change is deployed, the index is rebuilt with `--reset`, so the new list
-covers everything still inside retention.
+After merge, a maintainer runs the `index` workflow with `reset` ticked, so the
+new list covers everything still inside retention.
