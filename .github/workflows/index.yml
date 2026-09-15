@@ -1,0 +1,111 @@
+name: index
+
+# Runs the indexer on a schedule and publishes what it produces. State and
+# published files live on the `data` branch as a single commit, replaced on
+# every run so the branch's history never grows, and the published files are
+# deployed to GitHub Pages, which lets any site fetch them.
+on:
+  schedule:
+    # Every 10 minutes, off the top of the hour, when GitHub's scheduler is
+    # busiest and most likely to delay or drop a run.
+    - cron: "7,17,27,37,47,57 * * * *"
+  workflow_dispatch:
+    inputs:
+      reset:
+        description: "Discard saved state and rebuild from the deployment"
+        type: boolean
+        default: false
+
+# One run at a time. A queued run waits instead of cancelling one that is
+# saving state.
+concurrency:
+  group: index
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      # Replaces the data branch.
+      contents: write
+    outputs:
+      exit-code: ${{ steps.index.outputs.exit-code }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Restore state from the data branch
+        run: |
+          set -euo pipefail
+          mkdir -p data
+          if git ls-remote --exit-code --heads origin data >/dev/null; then
+            git fetch --depth=1 --no-tags origin data
+            git archive FETCH_HEAD | tar -x -C data
+          else
+            echo "No data branch yet, so this run starts the index."
+          fi
+
+      - name: Index
+        id: index
+        env:
+          RESET: ${{ inputs.reset && '--reset' || '' }}
+        run: |
+          set +e
+          npm run index -- --data ./data $RESET
+          code=$?
+          echo "exit-code=$code" >> "$GITHUB_OUTPUT"
+          # 0 is a normal run and 1 is a run that found a gap. Both wrote
+          # complete state and files, so both are saved and published, and the
+          # gap fails the workflow at the end. Anything else stopped partway
+          # and publishes nothing.
+          if [ "$code" -ne 0 ] && [ "$code" -ne 1 ]; then exit "$code"; fi
+
+      # A commit with no parent, built from data/ through a separate index so
+      # the checkout is untouched, then force-pushed over the branch.
+      - name: Save state to the data branch
+        run: |
+          set -euo pipefail
+          export GIT_INDEX_FILE="$RUNNER_TEMP/data-index"
+          git --work-tree=data add --all
+          tree="$(git write-tree)"
+          ledger="$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/state.json', 'utf8')).nextLedger - 1)")"
+          commit="$(git -c user.name='github-actions[bot]' \
+            -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit-tree "$tree" -m "index: to ledger $ledger")"
+          git push --force origin "$commit:refs/heads/data"
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: data/public
+
+  deploy:
+    needs: index
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v5
+        id: deployment
+
+      # After saving and publishing, so the data is kept and the lost range is
+      # visible in meta.json, but the run is still red and someone is told.
+      - name: Fail if events were lost
+        if: needs.index.outputs.exit-code == '1'
+        run: |
+          echo "::error::The index found a gap: runs stopped for longer than RPC retention, so some events are missing. See gap in meta.json."
+          exit 1
