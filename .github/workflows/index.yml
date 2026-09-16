@@ -6,9 +6,15 @@ name: index
 # deployed to GitHub Pages, which lets any site fetch them.
 on:
   schedule:
-    # Every 10 minutes, off the top of the hour, when GitHub's scheduler is
-    # busiest and most likely to delay or drop a run.
-    - cron: "7,17,27,37,47,57 * * * *"
+    # Hourly, at minute 23. GitHub delays or drops scheduled runs under load,
+    # and the more often a schedule asks to run the more likely that is — a
+    # ten-minute cadence here never started at all. The top of the hour is the
+    # busiest slot, so this sits away from it.
+    #
+    # Cadence costs freshness, never correctness: each run indexes everything
+    # since the last one, and nothing is lost until runs stop for as long as
+    # the RPC's ~7-day window.
+    - cron: "23 * * * *"
   workflow_dispatch:
     inputs:
       reset:

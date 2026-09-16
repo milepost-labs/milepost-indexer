@@ -1,8 +1,8 @@
 # Published files
 
 Every file is JSON under `v1/`, published at
-`https://milepost-labs.github.io/milepost-indexer/v1/` and updated about every
-10 minutes. A local run writes them to `<data>/public/v1/`.
+`https://milepost-labs.github.io/milepost-indexer/v1/` and updated hourly. A
+local run writes them to `<data>/public/v1/`.
 
 The site root is a page for people, listing the files and when they last
 updated. It is a convenience and not an interface: it is rebuilt from the same

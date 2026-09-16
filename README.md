@@ -29,9 +29,9 @@ runs.
 ## Published data
 
 A scheduled workflow, [`.github/workflows/index.yml`](.github/workflows/index.yml),
-runs the indexer every 10 minutes. Each run restores `state.json` from the
-`data` branch, indexes, replaces that branch with a single commit holding the
-new state and files, and deploys the files to GitHub Pages:
+runs the indexer hourly. Each run restores `state.json` from the `data` branch,
+indexes, replaces that branch with a single commit holding the new state and
+files, and deploys the files to GitHub Pages:
 
 https://milepost-labs.github.io/milepost-indexer/v1/meta.json
 
@@ -52,8 +52,11 @@ lists what is published and when it last updated.
   repository after 60 days without activity, and does not say whether the
   indexer's own pushes to `data` count. If `indexedAt` in `meta.json` stops
   moving, run `gh workflow enable index.yml`, then run it once.
-- **Late runs:** GitHub can start a scheduled run late when it is busy. RPC
-  retention of about 7 days leaves plenty of room to catch up.
+- **Late runs:** GitHub can start a scheduled run late, or skip it, when it is
+  busy — the more often a schedule asks to run, the more likely that is, which
+  is why this one is hourly rather than every few minutes. RPC retention of
+  about 7 days leaves plenty of room to catch up, and a run can always be
+  started by hand.
 
 ## Trusting the data
 
