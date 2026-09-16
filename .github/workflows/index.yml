@@ -6,10 +6,11 @@ name: index
 # deployed to GitHub Pages, which lets any site fetch them.
 on:
   schedule:
-    # Hourly, at minute 23. GitHub delays or drops scheduled runs under load,
-    # and the more often a schedule asks to run the more likely that is — a
-    # ten-minute cadence here never started at all. The top of the hour is the
-    # busiest slot, so this sits away from it.
+    # Hourly, at minute 23. This is a request, not a promise: GitHub starts
+    # scheduled runs when it has capacity, and on this account a sibling
+    # repository's daily job started 4–6 hours after its cron time every day
+    # for twelve days. A ten-minute cadence here never started at all, so
+    # asking hourly, away from the busy top of the hour, is the realistic ask.
     #
     # Cadence costs freshness, never correctness: each run indexes everything
     # since the last one, and nothing is lost until runs stop for as long as
