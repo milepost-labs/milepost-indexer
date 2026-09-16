@@ -1,5 +1,6 @@
-import { rm } from 'node:fs/promises';
+import { mkdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { indexPage } from './indexPage.ts';
 import { writeJson } from './json.ts';
 import type { State } from './types.ts';
 
@@ -73,4 +74,12 @@ export async function writeOutputs(
       await writeJson(path.join(root, file.path), file.body);
     }
   }
+
+  // Outside the versioned directory: a page for whoever opens the site root,
+  // rather than the 404 that publishing only JSON leaves there.
+  await mkdir(publicDir, { recursive: true });
+  await writeFile(
+    path.join(publicDir, 'index.html'),
+    indexPage(state, { indexedAt: context.indexedAt, version: OUTPUT_VERSION }),
+  );
 }

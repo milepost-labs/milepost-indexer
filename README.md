@@ -36,7 +36,8 @@ new state and files, and deploys the files to GitHub Pages:
 https://milepost-labs.github.io/milepost-indexer/v1/meta.json
 
 Any site can fetch them. [docs/outputs.md](docs/outputs.md) documents each
-file.
+file, and the [site root](https://milepost-labs.github.io/milepost-indexer/)
+lists what is published and when it last updated.
 
 ### Operating it
 
