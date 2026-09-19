@@ -1,0 +1,57 @@
+{
+  "programmes": {
+    "CD6X33SKLUEMANS67ID3LJL572FFGERMMJCIFRW7P7EKZQLH35XT67C6": {
+      "id": "CD6X33SKLUEMANS67ID3LJL572FFGERMMJCIFRW7P7EKZQLH35XT67C6",
+      "name": "Community health worker stipend 2026",
+      "creator": "GCS7774GF6OHIEXCXMUGI56RLOPHE3SEOK4F2CEMQYFXALNEYLK5IGHX",
+      "createdLedger": 4697285
+    }
+  },
+  "awards": {
+    "CD6X33SKLUEMANS67ID3LJL572FFGERMMJCIFRW7P7EKZQLH35XT67C6": {
+      "GAH3D4RM45ETE4W7VDRCWZBPRPT63CJXAGXFYVBC2FGANBZTS4OTKXCA": {
+        "recipient": "GAH3D4RM45ETE4W7VDRCWZBPRPT63CJXAGXFYVBC2FGANBZTS4OTKXCA",
+        "granted": "3000000000",
+        "released": "1000000000",
+        "tranches": 3,
+        "tranchesReleased": 1,
+        "payee": "GAH3D4RM45ETE4W7VDRCWZBPRPT63CJXAGXFYVBC2FGANBZTS4OTKXCA",
+        "mode": "Allocated",
+        "updatedLedger": 4697367
+      },
+      "GCJTOXX6PUK7WTK6LWRUQEWLYZ3QITOE2Q63JJJOJLWVGAYKZLSS5YNZ": {
+        "recipient": "GCJTOXX6PUK7WTK6LWRUQEWLYZ3QITOE2Q63JJJOJLWVGAYKZLSS5YNZ",
+        "granted": "800000000",
+        "released": "0",
+        "tranches": 3,
+        "tranchesReleased": 0,
+        "payee": "GAUHWES2VEBGS5IWDET2IUYZXG3HCXOV7QIMXWM3AH3KHXE4HWJOSC5A",
+        "mode": "Direct",
+        "updatedLedger": 4697363
+      }
+    }
+  },
+  "unhandledEvents": {
+    "record:AdminChanged": 2,
+    "registry:ConfigChanged": 1,
+    "attest:SchemaRegistered": 1,
+    "program:ProgrammeCreated": 1,
+    "record:WriterChanged": 1,
+    "program:PayeeChanged": 1,
+    "program:Contributed": 2,
+    "program:Applied": 2,
+    "program:Reviewed": 6,
+    "attest:Attested": 1,
+    "program:AllocationChanged": 1,
+    "record:Credited": 1,
+    "program:Directed": 1
+  },
+  "version": 1,
+  "network": "testnet",
+  "registry": "CCBQHBNIG5FIJEM6SQZQGTQRO3XXHV2BGVGGUY5JXXZ3Y55ZJSV3HMVF",
+  "fromLedger": 4697201,
+  "nextLedger": 4760952,
+  "complete": true,
+  "gap": false,
+  "registryNonce": 1
+}
