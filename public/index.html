@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Milepost index</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font: 16px/1.6 system-ui, sans-serif; margin: 0 auto; max-width: 42rem; padding: 2rem 1rem; }
+  h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+  .lede { color: GrayText; margin-top: 0; }
+  dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; }
+  dt { color: GrayText; }
+  dd { margin: 0; }
+  code, .id { font-family: ui-monospace, monospace; font-size: 0.85em; word-break: break-all; }
+  .id { color: GrayText; display: block; }
+  ul { padding-left: 1.2rem; }
+  .warning { border-left: 3px solid orange; padding-left: 0.75rem; }
+</style>
+</head>
+<body>
+<h1>Milepost index</h1>
+<p class="lede">Lists rebuilt from Milepost contract events, published as JSON about every ten minutes.</p>
+
+<p>
+  The contracts store everything under per-address keys and keep no lists, so
+  there is no on-chain way to ask who holds an award. These files answer that.
+  <strong>They say where to look, not what is true</strong>: read every entry back
+  from the contract before relying on it.
+</p>
+
+
+<h2>Status</h2>
+<dl>
+  <dt>Network</dt><dd>testnet</dd>
+  <dt>Registry</dt><dd><code>CCBQHBNIG5FIJEM6SQZQGTQRO3XXHV2BGVGGUY5JXXZ3Y55ZJSV3HMVF</code></dd>
+  <dt>Ledgers</dt><dd>4697201 to 4883893</dd>
+  <dt>Updated</dt><dd><time datetime="2026-09-26T17:17:38.600Z">2026-09-26T17:17:38.600Z</time></dd>
+  <dt>Programmes</dt><dd>1</dd>
+  <dt>Events without a handler</dt><dd>21</dd>
+</dl>
+
+<h2>Files</h2>
+<ul>
+  <li><a href="v1/meta.json">v1/meta.json</a> — what is indexed, and how fresh it is</li>
+  <li><a href="v1/programmes.json">v1/programmes.json</a> — every programme the registry has deployed</li>
+</ul>
+
+<h2>Awards by programme</h2>
+      <ul>
+        <li>
+          <a href="v1/programmes/CD6X33SKLUEMANS67ID3LJL572FFGERMMJCIFRW7P7EKZQLH35XT67C6/awards.json">Community health worker stipend 2026</a>
+          <span class="id">CD6X33SKLUEMANS67ID3LJL572FFGERMMJCIFRW7P7EKZQLH35XT67C6</span>
+        </li>
+      </ul>
+
+<p>
+  <a href="https://github.com/milepost-labs/milepost-indexer">milepost-indexer</a> builds these files;
+  <a href="https://github.com/milepost-labs/milepost-indexer/blob/main/docs/outputs.md">docs/outputs.md</a>
+  documents each one.
+</p>
+</body>
+</html>

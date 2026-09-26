@@ -1,0 +1,22 @@
+[
+  {
+    "recipient": "GAH3D4RM45ETE4W7VDRCWZBPRPT63CJXAGXFYVBC2FGANBZTS4OTKXCA",
+    "granted": "3000000000",
+    "released": "1000000000",
+    "tranches": 3,
+    "tranchesReleased": 1,
+    "payee": "GAH3D4RM45ETE4W7VDRCWZBPRPT63CJXAGXFYVBC2FGANBZTS4OTKXCA",
+    "mode": "Allocated",
+    "updatedLedger": 4697367
+  },
+  {
+    "recipient": "GCJTOXX6PUK7WTK6LWRUQEWLYZ3QITOE2Q63JJJOJLWVGAYKZLSS5YNZ",
+    "granted": "800000000",
+    "released": "0",
+    "tranches": 3,
+    "tranchesReleased": 0,
+    "payee": "GAUHWES2VEBGS5IWDET2IUYZXG3HCXOV7QIMXWM3AH3KHXE4HWJOSC5A",
+    "mode": "Direct",
+    "updatedLedger": 4697363
+  }
+]
